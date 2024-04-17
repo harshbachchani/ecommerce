@@ -4,9 +4,11 @@ import 'package:ecommerce/features/shop/screens/product_detail/widgets/product_a
 import 'package:ecommerce/features/shop/screens/product_detail/widgets/product_image_slider.dart';
 import 'package:ecommerce/features/shop/screens/product_detail/widgets/product_meta_data.dart';
 import 'package:ecommerce/features/shop/screens/product_detail/widgets/product_rating_share.dart';
+import 'package:ecommerce/features/shop/screens/product_reviews/product_reviews.dart';
 import 'package:ecommerce/utils/constants/sizes.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:readmore/readmore.dart';
 
 class ProductDetail extends StatelessWidget {
@@ -67,7 +69,8 @@ class ProductDetail extends StatelessWidget {
                       const HSectionHeading(
                           title: 'Reviews(199)', showActionButton: false),
                       IconButton(
-                        onPressed: () {},
+                        onPressed: () =>
+                            Get.to(() => const ProductReviewsScreen()),
                         icon: const Icon(CupertinoIcons.right_chevron),
                       ),
                     ],

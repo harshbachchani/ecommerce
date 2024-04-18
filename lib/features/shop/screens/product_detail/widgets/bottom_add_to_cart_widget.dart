@@ -16,7 +16,7 @@ class HBottomAddToCart extends StatelessWidget {
           horizontal: HSizes.defaultSpace, vertical: HSizes.defaultSpace / 2),
       decoration: BoxDecoration(
           color: dark ? HColors.darkGrey : HColors.light,
-          borderRadius: BorderRadius.only(
+          borderRadius: const BorderRadius.only(
             topLeft: Radius.circular(HSizes.cardRadiusLg),
             topRight: Radius.circular(HSizes.cardRadiusLg),
           )),
@@ -25,7 +25,7 @@ class HBottomAddToCart extends StatelessWidget {
         children: [
           Row(
             children: [
-              HRoundedIcon(
+              const HRoundedIcon(
                 data: Iconsax.minus,
                 backgroundColor: HColors.darkGrey,
                 width: 40,
@@ -35,7 +35,7 @@ class HBottomAddToCart extends StatelessWidget {
               const SizedBox(width: HSizes.spaceBtwItems),
               Text('2', style: Theme.of(context).textTheme.titleSmall),
               const SizedBox(width: HSizes.spaceBtwItems),
-              HRoundedIcon(
+              const HRoundedIcon(
                 data: Iconsax.add,
                 backgroundColor: HColors.black,
                 width: 40,
@@ -46,12 +46,12 @@ class HBottomAddToCart extends StatelessWidget {
           ),
           ElevatedButton(
             onPressed: () {},
-            child: Text('Add to Cart'),
             style: ElevatedButton.styleFrom(
               padding: const EdgeInsets.all(HSizes.md),
               backgroundColor: HColors.black,
               side: const BorderSide(color: HColors.black),
             ),
+            child: const Text('Add to Cart'),
           )
         ],
       ),

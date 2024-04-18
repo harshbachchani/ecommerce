@@ -20,7 +20,7 @@ class UserReviewCard extends StatelessWidget {
           children: [
             Row(
               children: [
-                CircleAvatar(
+                const CircleAvatar(
                   backgroundImage: AssetImage(HImages.userProfileImage2),
                 ),
                 const SizedBox(width: HSizes.spaceBtwItems),

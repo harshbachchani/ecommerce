@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 
 class HCartCounterIcon extends StatelessWidget {
-  const HCartCounterIcon({super.key, required this.onPressed, this.iconcolor});
-  final VoidCallback onPressed;
+  const HCartCounterIcon({super.key, this.onPressed, this.iconcolor});
+  final VoidCallback? onPressed;
   final Color? iconcolor;
   @override
   Widget build(BuildContext context) {

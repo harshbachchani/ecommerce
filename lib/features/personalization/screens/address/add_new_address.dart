@@ -1,8 +1,6 @@
 import 'package:ecommerce/common/widgets/appbar/appbar.dart';
 import 'package:ecommerce/utils/constants/sizes.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 
 class AddNewAddressScreen extends StatelessWidget {
@@ -11,7 +9,7 @@ class AddNewAddressScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: HAppBar(showbackArrow: true, title: Text('Add New Address')),
+      appBar: const HAppBar(showbackArrow: true, title: Text('Add New Address')),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(HSizes.defaultSpace),

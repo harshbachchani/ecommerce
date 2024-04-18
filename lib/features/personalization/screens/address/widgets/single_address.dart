@@ -2,7 +2,6 @@ import 'package:ecommerce/common/widgets/custom_shapes/container/rounded_contain
 import 'package:ecommerce/utils/constants/colors.dart';
 import 'package:ecommerce/utils/constants/sizes.dart';
 import 'package:ecommerce/utils/helpers/helper_function.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 
@@ -14,6 +13,8 @@ class HSingleAddress extends StatelessWidget {
     final dark = HHelperFunctions.isDarkMode(context);
     return HRoundedContainer(
       width: double.infinity,
+      padding: const EdgeInsets.symmetric(
+          vertical: HSizes.sm, horizontal: HSizes.md),
       showborder: true,
       backgroundColor: selectedAddress
           ? HColors.primary.withOpacity(.5)

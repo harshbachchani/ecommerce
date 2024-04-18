@@ -1,5 +1,4 @@
 import 'package:ecommerce/common/widgets/appbar/appbar.dart';
-import 'package:ecommerce/common/widgets/custom_shapes/container/rounded_container.dart';
 import 'package:ecommerce/features/personalization/screens/address/add_new_address.dart';
 import 'package:ecommerce/features/personalization/screens/address/widgets/single_address.dart';
 import 'package:ecommerce/utils/constants/colors.dart';
@@ -24,11 +23,15 @@ class UserAddressScreen extends StatelessWidget {
         title:
             Text('Addresses', style: Theme.of(context).textTheme.headlineSmall),
       ),
-      body: SingleChildScrollView(
+      body: const SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.all(HSizes.defaultSpace),
           child: Column(
-            children: [HSingleAddress(selectedAddress: true)],
+            children: [
+              HSingleAddress(selectedAddress: true),
+              HSingleAddress(selectedAddress: false),
+              HSingleAddress(selectedAddress: false),
+            ],
           ),
         ),
       ),

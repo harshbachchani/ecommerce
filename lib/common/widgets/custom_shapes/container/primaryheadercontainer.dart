@@ -16,7 +16,6 @@ class PrimaryHeaderContainer extends StatelessWidget {
         child: Stack(
           children: [
             //background custom shapes
-            child,
             Positioned(
               top: -150,
               right: -250,
@@ -31,6 +30,7 @@ class PrimaryHeaderContainer extends StatelessWidget {
                 backgroundColor: HColors.textWhite.withOpacity(0.1),
               ),
             ),
+            child,
           ],
         ),
       ),

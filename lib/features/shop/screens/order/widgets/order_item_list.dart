@@ -44,8 +44,8 @@ class HOrderItemList extends StatelessWidget {
                 IconButton(
                     onPressed: () {},
                     icon: const Icon(
-                      Icons.arrow_right,
-                      size: HSizes.sm,
+                      Iconsax.arrow_right_3_copy,
+                      size: HSizes.iconSm,
                     ))
               ],
             ),
@@ -55,7 +55,7 @@ class HOrderItemList extends StatelessWidget {
                 Expanded(
                   child: Row(
                     children: [
-                      const Icon(Iconsax.ship),
+                      const Icon(Iconsax.tag),
                       const SizedBox(width: HSizes.spaceBtwItems / 2),
                       Expanded(
                         child: Column(
@@ -65,7 +65,7 @@ class HOrderItemList extends StatelessWidget {
                               'Order',
                               style: Theme.of(context).textTheme.labelMedium,
                             ),
-                            Text('#43211',
+                            Text('[#43211]',
                                 style: Theme.of(context).textTheme.titleMedium),
                           ],
                         ),
@@ -83,10 +83,10 @@ class HOrderItemList extends StatelessWidget {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             Text(
-                              'Order',
+                              'Shipping Date',
                               style: Theme.of(context).textTheme.labelMedium,
                             ),
-                            Text('#43211',
+                            Text('23 Feb 2025',
                                 style: Theme.of(context).textTheme.titleMedium),
                           ],
                         ),

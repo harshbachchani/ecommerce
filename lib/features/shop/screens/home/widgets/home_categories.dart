@@ -1,7 +1,9 @@
 import 'package:ecommerce/common/widgets/image_text_widget/vertical_image_text.dart';
+import 'package:ecommerce/features/shop/screens/subcategory/sub_category.dart';
 import 'package:ecommerce/utils/constants/colors.dart';
 import 'package:ecommerce/utils/constants/image_string.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class HomeCategories extends StatelessWidget {
   const HomeCategories({super.key});
@@ -19,7 +21,7 @@ class HomeCategories extends StatelessWidget {
             image: HImages.shoeIcon,
             title: 'Shoes',
             textColor: HColors.accent,
-            onTap: () {},
+            onTap: () => Get.to(() => const SubCategoryScreen()),
           );
         },
       ),

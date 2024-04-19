@@ -10,7 +10,6 @@ class HUserProfileTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      onTap: onPressed,
       leading: const HCircularImage(
         image: HImages.user,
         width: 50,

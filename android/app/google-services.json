@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "189816040851",
+    "project_id": "hivekart-76dba",
+    "storage_bucket": "hivekart-76dba.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:189816040851:android:083706a3525ac6d3b94c66",
+        "android_client_info": {
+          "package_name": "com.example.ecommerce"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "189816040851-k37a8qk9v85f21ukt4fdd3ofbppvd3lk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA_gi12XV4KtSaKNuqZaGyl9pfSIs6sGOM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "189816040851-k37a8qk9v85f21ukt4fdd3ofbppvd3lk.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "189816040851-77cjctcdrl8en5ovjrkl7idikh40pj67.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.ecommerce"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

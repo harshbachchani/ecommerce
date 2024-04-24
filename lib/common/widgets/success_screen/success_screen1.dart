@@ -4,6 +4,7 @@ import 'package:ecommerce/utils/constants/sizes.dart';
 import 'package:ecommerce/utils/constants/text_string.dart';
 import 'package:ecommerce/utils/helpers/helper_function.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 
 class SuccessScreen extends StatelessWidget {
   const SuccessScreen(
@@ -22,8 +23,8 @@ class SuccessScreen extends StatelessWidget {
           padding: HSpacigStyle.paddingwithAppBarHeight * 2,
           child: Column(
             children: [
-              Image(
-                image: AssetImage(image),
+              Lottie.asset(
+                image,
                 width: HHelperFunctions.screenWidth() * 0.6,
               ),
               const SizedBox(height: HSizes.spaceBtwSections),

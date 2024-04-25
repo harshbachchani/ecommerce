@@ -5,7 +5,6 @@ import 'package:ecommerce/utils/constants/text_string.dart';
 import 'package:ecommerce/utils/validators/validaton.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 
 class SignUpForm extends StatelessWidget {

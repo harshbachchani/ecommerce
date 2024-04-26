@@ -28,7 +28,7 @@ migrate_working_dir/
 .flutter-plugins
 .flutter-plugins-dependencies
 .pub-cache/
-**/package.json
+**/google-services.json
 .pub/
 /build/
 

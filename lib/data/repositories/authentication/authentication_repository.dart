@@ -1,3 +1,4 @@
+import 'package:ecommerce/data/repositories/user/user_repository.dart';
 import 'package:ecommerce/features/authentication/screens/login/login.dart';
 import 'package:ecommerce/features/authentication/screens/onBoarding/onboarding.dart';
 import 'package:ecommerce/features/authentication/screens/signup/verfify_email.dart';
@@ -6,6 +7,7 @@ import 'package:ecommerce/utils/exceptions/firebase_auth_exceptions.dart';
 import 'package:ecommerce/utils/exceptions/firebase_exceptions.dart';
 import 'package:ecommerce/utils/exceptions/format_exceptions.dart';
 import 'package:ecommerce/utils/exceptions/platform_exceptions.dart';
+import 'package:ecommerce/utils/popups/loader.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
@@ -21,6 +23,7 @@ class AuthenticationRepository extends GetxController {
   final _auth = FirebaseAuth.instance;
   //called from main.dart on app launch
 
+  User? get authUser => _auth.currentUser;
   @override
   void onReady() {
     FlutterNativeSplash.remove();
@@ -54,6 +57,8 @@ class AuthenticationRepository extends GetxController {
       return await _auth.signInWithEmailAndPassword(
           email: email, password: password);
     } on FirebaseAuthException catch (e) {
+      HLoaders.warningSnackBar(
+          title: e.code, message: HFirebaseAuthException(e.code).message);
       throw HFirebaseAuthException(e.code).message;
     } on FirebaseException catch (e) {
       throw HFirebaseException(e.code).message;
@@ -73,6 +78,8 @@ class AuthenticationRepository extends GetxController {
       return await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
     } on FirebaseAuthException catch (e) {
+      HLoaders.warningSnackBar(
+          title: e.code, message: HFirebaseAuthException(e.code).message);
       throw HFirebaseAuthException(e.code).message;
     } on FirebaseException catch (e) {
       throw HFirebaseException(e.code).message;
@@ -91,6 +98,8 @@ class AuthenticationRepository extends GetxController {
     try {
       await _auth.currentUser?.sendEmailVerification();
     } on FirebaseAuthException catch (e) {
+      HLoaders.warningSnackBar(
+          title: e.code, message: HFirebaseAuthException(e.code).message);
       throw HFirebaseAuthException(e.code).message;
     } on FirebaseException catch (e) {
       throw HFirebaseException(e.code).message;
@@ -108,6 +117,8 @@ class AuthenticationRepository extends GetxController {
     try {
       await _auth.sendPasswordResetEmail(email: email);
     } on FirebaseAuthException catch (e) {
+      HLoaders.warningSnackBar(
+          title: e.code, message: HFirebaseAuthException(e.code).message);
       throw HFirebaseAuthException(e.code).message;
     } on FirebaseException catch (e) {
       throw HFirebaseException(e.code).message;
@@ -140,6 +151,8 @@ class AuthenticationRepository extends GetxController {
       //Once Signed in ,return the UserCredential
       return await _auth.signInWithCredential(credentials);
     } on FirebaseAuthException catch (e) {
+      HLoaders.warningSnackBar(
+          title: e.code, message: HFirebaseAuthException(e.code).message);
       throw HFirebaseAuthException(e.code).message;
     } on FirebaseException catch (e) {
       throw HFirebaseException(e.code).message;
@@ -152,6 +165,49 @@ class AuthenticationRepository extends GetxController {
     }
   }
   //Facebook authentication
+
+//Reauthenticate User
+  Future<void> reAuthenticateWithEmailAndPassword(
+      String email, String password) async {
+    try {
+      AuthCredential credential =
+          EmailAuthProvider.credential(email: email, password: password);
+
+      //Reauthenticate
+      await _auth.currentUser!.reauthenticateWithCredential(credential);
+    } on FirebaseAuthException catch (e) {
+      HLoaders.warningSnackBar(
+          title: e.code, message: HFirebaseAuthException(e.code).message);
+      throw HFirebaseAuthException(e.code).message;
+    } on FirebaseException catch (e) {
+      throw HFirebaseException(e.code).message;
+    } on FormatException catch (_) {
+      throw const HFormatException();
+    } on PlatformException catch (e) {
+      throw HPlatformException(e.code).message;
+    } catch (e) {
+      throw 'Something Went Wrong!!';
+    }
+  }
+
+  Future<void> deleteAccount() async {
+    try {
+      await UserRepository.instance.removeUserRecord(_auth.currentUser!.uid);
+      await _auth.currentUser?.delete();
+    } on FirebaseAuthException catch (e) {
+      HLoaders.warningSnackBar(
+          title: e.code, message: HFirebaseAuthException(e.code).message);
+      throw HFirebaseAuthException(e.code).message;
+    } on FirebaseException catch (e) {
+      throw HFirebaseException(e.code).message;
+    } on FormatException catch (_) {
+      throw const HFormatException();
+    } on PlatformException catch (e) {
+      throw HPlatformException(e.code).message;
+    } catch (e) {
+      throw 'Something Went Wrong!!';
+    }
+  }
 
   /*---------------./end Federated identity & social sign -in -------------*/
   //logout - valid for any authentication
@@ -166,6 +222,8 @@ class AuthenticationRepository extends GetxController {
       // }
       Get.offAll(() => const LoginScreen());
     } on FirebaseAuthException catch (e) {
+      HLoaders.warningSnackBar(
+          title: e.code, message: HFirebaseAuthException(e.code).message);
       throw HFirebaseAuthException(e.code).message;
     } on FirebaseException catch (e) {
       throw HFirebaseException(e.code).message;

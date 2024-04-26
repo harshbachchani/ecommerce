@@ -2,8 +2,6 @@
 class HFirebaseAuthException implements Exception {
   /// The error code associated with the exception.
   final String code;
-
-  /// Constructor that takes an error code.
   HFirebaseAuthException(this.code);
 
   /// Get the corresponding error message based on the error code.

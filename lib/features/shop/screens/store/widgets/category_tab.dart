@@ -2,13 +2,15 @@ import 'package:ecommerce/common/widgets/brands/brand_show_case.dart';
 import 'package:ecommerce/common/widgets/layouts/grid_layout.dart';
 import 'package:ecommerce/common/widgets/products/products_cards/product_card_vertical.dart';
 import 'package:ecommerce/common/widgets/text/section_heading.dart';
+import 'package:ecommerce/features/shop/models/category_model.dart';
+import 'package:ecommerce/features/shop/models/product_model.dart';
 import 'package:ecommerce/utils/constants/image_string.dart';
 import 'package:ecommerce/utils/constants/sizes.dart';
 import 'package:flutter/material.dart';
 
 class HCategoryTab extends StatelessWidget {
-  const HCategoryTab({super.key});
-
+  const HCategoryTab({super.key, required this.category});
+  final CategoryModel category;
   @override
   Widget build(BuildContext context) {
     return ListView(
@@ -38,7 +40,9 @@ class HCategoryTab extends StatelessWidget {
               HGridLayout(
                 itemcount: 4,
                 itemBuilder: (_, index) {
-                  return const HProductCardVertical();
+                  return HProductCardVertical(
+                    product: ProductModel.empty(),
+                  );
                 },
               )
             ],

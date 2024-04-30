@@ -5,6 +5,7 @@ import 'package:ecommerce/common/widgets/layouts/grid_layout.dart';
 import 'package:ecommerce/common/widgets/products/cart/cart_menu_icon.dart';
 import 'package:ecommerce/common/widgets/text/section_heading.dart';
 import 'package:ecommerce/common/widgets/brands/brand_card.dart';
+import 'package:ecommerce/features/shop/controllers/category_controller.dart';
 import 'package:ecommerce/features/shop/screens/brand/all_brands.dart';
 import 'package:ecommerce/features/shop/screens/store/widgets/category_tab.dart';
 import 'package:ecommerce/utils/constants/sizes.dart';
@@ -17,8 +18,10 @@ class StoreScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final categories = CategoryController.instance.featuredCategories;
+
     return DefaultTabController(
-      length: 5,
+      length: categories.length,
       child: Scaffold(
         appBar: HAppBar(
           title:
@@ -66,26 +69,19 @@ class StoreScreen extends StatelessWidget {
                     ],
                   ),
                 ),
-                bottom: const HTabBar(
-                  tabs: [
-                    Tab(child: Text('Sports')),
-                    Tab(child: Text('Furniture')),
-                    Tab(child: Text('Electronics')),
-                    Tab(child: Text('Clothes')),
-                    Tab(child: Text('Cosmetics')),
-                  ],
-                ),
+                bottom: HTabBar(
+                    tabs: categories
+                        .map((category) => Tab(
+                              child: Text(category.name),
+                            ))
+                        .toList()),
               )
             ];
           },
           body: TabBarView(
-            children: [
-              const HCategoryTab(),
-              Container(),
-              Container(),
-              Container(),
-              Container(),
-            ],
+            children: categories
+                .map((element) => HCategoryTab(category: element))
+                .toList(),
           ),
         ),
       ),

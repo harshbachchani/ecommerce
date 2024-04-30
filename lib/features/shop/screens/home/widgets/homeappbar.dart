@@ -1,5 +1,5 @@
 import 'package:ecommerce/common/widgets/appbar/appbar.dart';
-import 'package:ecommerce/common/widgets/loaders/circular_loader.dart';
+import 'package:ecommerce/common/widgets/shimmers/shimmer.dart';
 import 'package:ecommerce/common/widgets/products/cart/cart_menu_icon.dart';
 import 'package:ecommerce/features/personalization/controllers/user_controller.dart';
 import 'package:ecommerce/features/shop/screens/cart/cart.dart';
@@ -7,7 +7,6 @@ import 'package:ecommerce/utils/constants/colors.dart';
 import 'package:ecommerce/utils/constants/text_string.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/get_state_manager.dart';
 
 class HHomeAppBar extends StatelessWidget {
   const HHomeAppBar({super.key});

@@ -2,6 +2,7 @@ import 'package:ecommerce/common/widgets/appbar/appbar.dart';
 import 'package:ecommerce/common/widgets/icons/circular_icons.dart';
 import 'package:ecommerce/common/widgets/layouts/grid_layout.dart';
 import 'package:ecommerce/common/widgets/products/products_cards/product_card_vertical.dart';
+import 'package:ecommerce/features/shop/models/product_model.dart';
 import 'package:ecommerce/features/shop/screens/home/home.dart';
 import 'package:ecommerce/utils/constants/sizes.dart';
 import 'package:flutter/material.dart';
@@ -32,7 +33,9 @@ class FavouriteScreen extends StatelessWidget {
               HGridLayout(
                   itemcount: 4,
                   itemBuilder: (_, index) {
-                    return const HProductCardVertical();
+                    return HProductCardVertical(
+                      product: ProductModel.empty(),
+                    );
                   })
             ],
           ),

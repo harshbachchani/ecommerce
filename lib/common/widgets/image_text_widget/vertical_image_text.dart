@@ -1,3 +1,4 @@
+import 'package:ecommerce/common/widgets/images/circular_image.dart';
 import 'package:ecommerce/utils/constants/colors.dart';
 import 'package:ecommerce/utils/constants/sizes.dart';
 import 'package:ecommerce/utils/helpers/helper_function.dart';
@@ -11,9 +12,11 @@ class HVeticalTextImages extends StatelessWidget {
     this.textColor = HColors.white,
     this.backgroundcolor,
     this.onTap,
+    this.isNetworkImage = true,
   });
   final String image, title;
   final Color textColor;
+  final bool isNetworkImage;
   final Color? backgroundcolor;
   final void Function()? onTap;
   @override
@@ -26,23 +29,17 @@ class HVeticalTextImages extends StatelessWidget {
         child: Column(
           children: [
             //circular icon
-            Container(
+            HCircularImage(
+              image: image,
               width: 56,
               height: 56,
-              padding: const EdgeInsets.all(HSizes.sm),
-              decoration: BoxDecoration(
-                color:
-                    backgroundcolor ?? (dark ? HColors.black : HColors.white),
-                borderRadius: BorderRadius.circular(100),
-              ),
-              child: Center(
-                child: Image(
-                  image: AssetImage(image),
-                  fit: BoxFit.cover,
-                  color: dark ? HColors.light : HColors.dark,
-                ),
-              ),
+              padding: HSizes.sm,
+              backgroundColor: backgroundcolor,
+              overlaycolor: dark ? HColors.light : HColors.dark,
+              isNetworkImage: isNetworkImage,
+              fit: BoxFit.cover,
             ),
+
             const SizedBox(height: HSizes.spaceBtwItems / 2),
             SizedBox(
               width: 55,

@@ -4,11 +4,14 @@ import 'package:ecommerce/common/widgets/listtile/setting_menu.dart';
 import 'package:ecommerce/common/widgets/listtile/user_profile_tile.dart';
 import 'package:ecommerce/common/widgets/text/section_heading.dart';
 import 'package:ecommerce/data/repositories/authentication/authentication_repository.dart';
+
+import 'package:ecommerce/data/repositories/products/product_repository.dart';
 import 'package:ecommerce/features/personalization/screens/address/address.dart';
 import 'package:ecommerce/features/personalization/screens/profile/profile.dart';
 import 'package:ecommerce/features/shop/screens/cart/cart.dart';
 import 'package:ecommerce/features/shop/screens/order/order.dart';
 import 'package:ecommerce/utils/constants/colors.dart';
+import 'package:ecommerce/utils/constants/dummy_data.dart';
 import 'package:ecommerce/utils/constants/sizes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -107,7 +110,10 @@ class SettingsScreen extends StatelessWidget {
                     icon: Iconsax.document_upload,
                     title: 'Load data',
                     subtitle: 'upload data in your cloud Firebase',
-                    onTap: () {},
+                    onTap: () async {
+                      ProductRepository.instance
+                          .uploadDummyData(HDummyData.products);
+                    },
                   ),
                   HSettingMenuTile(
                     icon: Iconsax.location,

@@ -1,5 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:ecommerce/common/widgets/loaders/circular_loader.dart';
+import 'package:ecommerce/common/widgets/shimmers/shimmer.dart';
 import 'package:ecommerce/utils/constants/sizes.dart';
 import 'package:ecommerce/utils/helpers/helper_function.dart';
 import 'package:flutter/material.dart';

@@ -1,5 +1,5 @@
 import 'package:ecommerce/common/widgets/images/circular_image.dart';
-import 'package:ecommerce/common/widgets/loaders/circular_loader.dart';
+import 'package:ecommerce/common/widgets/shimmers/shimmer.dart';
 import 'package:ecommerce/features/personalization/controllers/user_controller.dart';
 import 'package:ecommerce/utils/constants/colors.dart';
 import 'package:ecommerce/utils/constants/image_string.dart';

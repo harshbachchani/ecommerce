@@ -5,23 +5,32 @@ import 'package:ecommerce/common/widgets/images/rounded_image.dart';
 import 'package:ecommerce/common/widgets/products/products_cards/widgets/product_price_text.dart';
 import 'package:ecommerce/common/widgets/products/products_cards/widgets/products_brand_tag.dart';
 import 'package:ecommerce/common/widgets/text/product_title_text.dart';
+import 'package:ecommerce/features/shop/controllers/product/product_controller.dart';
+import 'package:ecommerce/features/shop/models/product_model.dart';
 import 'package:ecommerce/features/shop/screens/product_detail/product_detail.dart';
 import 'package:ecommerce/utils/constants/colors.dart';
-import 'package:ecommerce/utils/constants/image_string.dart';
+import 'package:ecommerce/utils/constants/enums.dart';
 import 'package:ecommerce/utils/constants/sizes.dart';
+import 'package:ecommerce/utils/constants/text_string.dart';
 import 'package:ecommerce/utils/helpers/helper_function.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 
 class HProductCardVertical extends StatelessWidget {
-  const HProductCardVertical({super.key});
-
+  const HProductCardVertical({
+    super.key,
+    required this.product,
+  });
+  final ProductModel product;
   @override
   Widget build(BuildContext context) {
+    final controller = ProductController.instance;
+    final salePercentage =
+        controller.calculatePercentage(product.price, product.salePrice);
     final dark = HHelperFunctions.isDarkMode(context);
     return InkWell(
-      onTap: () => Get.to(() => const ProductDetail()),
+      onTap: () => Get.to(() => ProductDetail(product: product)),
       child: Container(
         width: 180,
         padding: const EdgeInsets.all(1),
@@ -36,13 +45,19 @@ class HProductCardVertical extends StatelessWidget {
             //Thumbnail,Wishlist Button,Discount Tag
             HRoundedContainer(
               height: 180,
+              width: 180,
               padding: const EdgeInsets.all(HSizes.sm),
               backgroundColor: dark ? HColors.dark : HColors.light,
               child: Stack(
                 children: [
                   //Thumbnail Image,
-                  const HRoundedImage(
-                      imageUrl: HImages.productImage1, applyImageRadius: true),
+                  Center(
+                    child: HRoundedImage(
+                      imageUrl: product.thumbanail,
+                      applyImageRadius: true,
+                      isNetworkImage: true,
+                    ),
+                  ),
                   //Sale Tag
                   Positioned(
                     top: 12,
@@ -52,7 +67,7 @@ class HProductCardVertical extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(
                           horizontal: HSizes.sm, vertical: HSizes.xs),
                       child: Text(
-                        '25%',
+                        salePercentage != null ? '$salePercentage%' : '15%',
                         style: Theme.of(context)
                             .textTheme
                             .labelLarge!
@@ -73,15 +88,14 @@ class HProductCardVertical extends StatelessWidget {
             const SizedBox(height: HSizes.spaceBtwItems / 2),
             //Details
 
-            const Padding(
-              padding: EdgeInsets.only(left: HSizes.sm),
+            Padding(
+              padding: const EdgeInsets.only(left: HSizes.sm),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  HProudctTitleText(
-                      title: 'Green Nike Air Shoes', smallSize: true),
-                  SizedBox(height: HSizes.spaceBtwItems / 2),
-                  HBrandTitleWithVerifiedIcon(title: 'Nike'),
+                  HProudctTitleText(title: product.title, smallSize: true),
+                  const SizedBox(height: HSizes.spaceBtwItems / 2),
+                  HBrandTitleWithVerifiedIcon(title: product.brand!.name),
                 ],
               ),
             ),
@@ -89,9 +103,30 @@ class HProductCardVertical extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Padding(
-                  padding: EdgeInsets.only(left: HSizes.sm),
-                  child: HProductPriceText(price: '1000'),
+                Flexible(
+                  child: Column(
+                    children: [
+                      if (product.productType ==
+                              ProductType.single.toString() &&
+                          product.salePrice > 0)
+                        Padding(
+                          padding: const EdgeInsets.only(left: HSizes.sm),
+                          child: Text(
+                            '${HTextString.rupeeSign}${product.price.toString()}',
+                            style:
+                                Theme.of(context).textTheme.labelMedium!.apply(
+                                      decoration: TextDecoration.lineThrough,
+                                    ),
+                          ),
+                        ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: HSizes.sm),
+                        child: HProductPriceText(
+                          price: controller.getProductPrice(product),
+                        ),
+                      )
+                    ],
+                  ),
                 ),
                 Container(
                   decoration: const BoxDecoration(

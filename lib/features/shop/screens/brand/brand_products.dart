@@ -20,7 +20,7 @@ class BrandProducts extends StatelessWidget {
               children: [
                 HBrandCard(showBorder: true),
                 SizedBox(height: HSizes.spaceBtwSections),
-                HSortableProducts(),
+                HSortableProducts(products: []),
               ],
             ),
           ),

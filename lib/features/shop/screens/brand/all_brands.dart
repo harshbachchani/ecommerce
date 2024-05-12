@@ -1,7 +1,9 @@
 import 'package:ecommerce/common/widgets/appbar/appbar.dart';
 import 'package:ecommerce/common/widgets/brands/brand_card.dart';
 import 'package:ecommerce/common/widgets/layouts/grid_layout.dart';
+import 'package:ecommerce/common/widgets/shimmers/brand_shimmer.dart';
 import 'package:ecommerce/common/widgets/text/section_heading.dart';
+import 'package:ecommerce/features/shop/controllers/product/brand_controller.dart';
 import 'package:ecommerce/features/shop/screens/brand/brand_products.dart';
 import 'package:ecommerce/utils/constants/sizes.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +14,7 @@ class AllBrandScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final brandController = Get.put(BrandController());
     return Scaffold(
       appBar: const HAppBar(title: Text('Brand'), showbackArrow: true),
       body: SingleChildScrollView(
@@ -24,13 +27,33 @@ class AllBrandScreen extends StatelessWidget {
               const SizedBox(height: HSizes.spaceBtwItems),
 
               //Brands
-              HGridLayout(
-                  mainAxisExtent: 80,
-                  itemcount: 10,
-                  itemBuilder: (context, index) => HBrandCard(
-                        showBorder: true,
-                        onTap: () => Get.to(() => const BrandProducts()),
-                      ))
+              Obx(() {
+                if (brandController.isloading.value) {
+                  return const HBrandShimmer();
+                }
+                if (brandController.allBrands.isEmpty) {
+                  return Center(
+                    child: Text(
+                      'No Data Found',
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyMedium!
+                          .apply(color: Colors.white),
+                    ),
+                  );
+                }
+                return HGridLayout(
+                    itemcount: brandController.allBrands.length,
+                    mainAxisExtent: 80,
+                    itemBuilder: (_, index) {
+                      final brand = brandController.allBrands[index];
+                      return HBrandCard(
+                        showBorder: false,
+                        brand: brand,
+                        onTap: () => Get.to(() => BrandProducts(brand: brand)),
+                      );
+                    });
+              })
             ],
           ),
         ),

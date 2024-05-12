@@ -1,3 +1,5 @@
+import 'package:ecommerce/features/shop/controllers/product/cart_controller.dart';
+import 'package:ecommerce/utils/helpers/pricing_calculator.dart';
 import 'package:flutter/material.dart';
 import 'package:ecommerce/utils/constants/sizes.dart';
 import 'package:ecommerce/utils/constants/text_string.dart';
@@ -7,6 +9,8 @@ class HBillingAmountSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final cartController = CartController.instance;
+    final subTotal = cartController.totalCartPrice.value;
     return Column(
       children: [
         //subtotal
@@ -14,7 +18,7 @@ class HBillingAmountSection extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text('Subtotal', style: Theme.of(context).textTheme.bodyMedium),
-            Text('${HTextString.rupeeSign}256.0',
+            Text('${HTextString.rupeeSign}$subTotal',
                 style: Theme.of(context).textTheme.bodyMedium),
           ],
         ),
@@ -23,7 +27,8 @@ class HBillingAmountSection extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text('Shipping Fee', style: Theme.of(context).textTheme.bodyMedium),
-            Text('${HTextString.rupeeSign}20.0',
+            Text(
+                '${HTextString.rupeeSign}${HPricingCalculator.calculateShippingCost(subTotal, 'IN')}',
                 style: Theme.of(context).textTheme.labelLarge),
           ],
         ),
@@ -32,7 +37,8 @@ class HBillingAmountSection extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text('Tax Fee', style: Theme.of(context).textTheme.bodyMedium),
-            Text('${HTextString.rupeeSign}10.0',
+            Text(
+                '${HTextString.rupeeSign}${HPricingCalculator.calculateTax(subTotal, 'IN')}',
                 style: Theme.of(context).textTheme.labelLarge),
           ],
         ),
@@ -41,7 +47,8 @@ class HBillingAmountSection extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text('Order Total', style: Theme.of(context).textTheme.bodyMedium),
-            Text('${HTextString.rupeeSign}10.0',
+            Text(
+                '${HTextString.rupeeSign}${HPricingCalculator.calculateTotalPrice(subTotal, 'IN')}',
                 style: Theme.of(context).textTheme.titleMedium),
           ],
         ),

@@ -54,6 +54,7 @@ class ProductController extends GetxController {
       return (product.salePrice > 0 ? product.salePrice : product.price)
           .toString();
     } else {
+      if (product.productVariations == null) return '';
       //calculate the smallest and largest prices among variations
       for (var variation in product.productVariations!) {
         //Determine the price to consider (sale price if availabe,otherwise regular price)

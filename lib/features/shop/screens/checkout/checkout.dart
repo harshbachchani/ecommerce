@@ -1,19 +1,19 @@
 import 'package:ecommerce/common/widgets/appbar/appbar.dart';
 import 'package:ecommerce/common/widgets/custom_shapes/container/rounded_container.dart';
-import 'package:ecommerce/common/widgets/success_screen/success_screen1.dart';
+import 'package:ecommerce/features/shop/controllers/product/cart_controller.dart';
+import 'package:ecommerce/features/shop/controllers/product/order_controller.dart';
 import 'package:ecommerce/features/shop/screens/cart/widgets/all_cart_item.dart';
 import 'package:ecommerce/features/shop/screens/checkout/widgets/billing_address_section.dart';
 import 'package:ecommerce/features/shop/screens/checkout/widgets/billing_amount_section.dart';
 import 'package:ecommerce/features/shop/screens/checkout/widgets/billing_payment_section.dart';
 import 'package:ecommerce/features/shop/screens/checkout/widgets/coupon_code.dart';
-import 'package:ecommerce/navigation_menu.dart';
 import 'package:ecommerce/utils/constants/colors.dart';
-import 'package:ecommerce/utils/constants/image_string.dart';
 import 'package:ecommerce/utils/constants/sizes.dart';
 import 'package:ecommerce/utils/constants/text_string.dart';
 import 'package:ecommerce/utils/helpers/helper_function.dart';
+import 'package:ecommerce/utils/helpers/pricing_calculator.dart';
+import 'package:ecommerce/utils/popups/loader.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 class CheckoutScreen extends StatelessWidget {
   const CheckoutScreen({super.key});
@@ -21,7 +21,10 @@ class CheckoutScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final dark = HHelperFunctions.isDarkMode(context);
-
+    final cartController = CartController.instance;
+    final orderController = OrderController.instance;
+    final subTotal = cartController.totalCartPrice.value;
+    final totalAmount = HPricingCalculator.calculateTotalPrice(subTotal, 'IN');
     return Scaffold(
       appBar: HAppBar(
         showbackArrow: true,
@@ -74,15 +77,12 @@ class CheckoutScreen extends StatelessWidget {
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(HSizes.defaultSpace),
         child: ElevatedButton(
-            onPressed: () => Get.to(
-                  () => SuccessScreen(
-                    image: HImages.successfulPaymentIcon,
-                    title: 'Payment Success!',
-                    subtitle: 'Your Item Will Be Shipped Soon!',
-                    onpressed: () => Get.offAll(() => const NavigationMenu()),
-                  ),
-                ),
-            child: const Text('Checkout ${HTextString.rupeeSign}256.0')),
+            onPressed: subTotal > 0
+                ? () => orderController.processOrder(totalAmount)
+                : () => HLoaders.warningSnackBar(
+                    title: 'Empty Cart',
+                    message: 'Add Items to the Cart in order to proceed'),
+            child: Text('Checkout ${HTextString.rupeeSign}$totalAmount')),
       ),
     );
   }

@@ -11,6 +11,7 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
       themeMode: ThemeMode.system,
       getPages: AppRoutes.pages,
       darkTheme: HAppTheme.darkTheme,

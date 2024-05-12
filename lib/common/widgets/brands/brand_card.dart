@@ -1,8 +1,9 @@
 import 'package:ecommerce/common/widgets/custom_shapes/container/rounded_container.dart';
 import 'package:ecommerce/common/widgets/images/circular_image.dart';
 import 'package:ecommerce/common/widgets/products/products_cards/widgets/products_brand_tag.dart';
+import 'package:ecommerce/features/shop/models/brand_model.dart';
 import 'package:ecommerce/utils/constants/enums.dart';
-import 'package:ecommerce/utils/constants/image_string.dart';
+
 import 'package:ecommerce/utils/constants/sizes.dart';
 import 'package:ecommerce/utils/helpers/helper_function.dart';
 import 'package:flutter/material.dart';
@@ -12,11 +13,14 @@ class HBrandCard extends StatelessWidget {
     super.key,
     required this.showBorder,
     this.onTap,
+    required this.brand,
   });
+  final BrandModel brand;
   final bool showBorder;
   final void Function()? onTap;
   @override
   Widget build(BuildContext context) {
+    if (brand.id.isEmpty) return const Center();
     return GestureDetector(
       onTap: onTap,
       child: HRoundedContainer(
@@ -28,7 +32,8 @@ class HBrandCard extends StatelessWidget {
             //Icon
             Flexible(
               child: HCircularImage(
-                image: HImages.clothIcon,
+                image: brand.image,
+                isNetworkImage: true,
                 backgroundColor: Colors.transparent,
                 overlaycolor: HHelperFunctions.getalternateColor(context),
               ),
@@ -41,9 +46,9 @@ class HBrandCard extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const HBrandTitleWithVerifiedIcon(
-                      title: 'Nike', brandTextSizes: TextSizes.large),
-                  Text('250 Products',
+                  HBrandTitleWithVerifiedIcon(
+                      title: brand.name, brandTextSizes: TextSizes.large),
+                  Text('${brand.productsCount ?? 0} products',
                       overflow: TextOverflow.ellipsis,
                       style: Theme.of(context).textTheme.labelMedium),
                 ],

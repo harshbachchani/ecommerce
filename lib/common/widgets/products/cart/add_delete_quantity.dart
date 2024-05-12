@@ -6,7 +6,11 @@ import 'package:flutter/material.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 
 class HAddRemoveQuantityButton extends StatelessWidget {
-  const HAddRemoveQuantityButton({super.key});
+  const HAddRemoveQuantityButton(
+      {super.key, required this.quantity, this.add, this.remove});
+  final int quantity;
+  final VoidCallback? add, remove;
+
   @override
   Widget build(BuildContext context) {
     final dark = HHelperFunctions.isDarkMode(context);
@@ -18,19 +22,22 @@ class HAddRemoveQuantityButton extends StatelessWidget {
           width: 32,
           height: 32,
           size: HSizes.md,
+          onPressed: remove,
           color: dark ? HColors.white : HColors.black,
           backgroundColor: dark ? HColors.darkGrey : HColors.light,
         ),
         const SizedBox(width: HSizes.spaceBtwItems),
-        Text('2', style: Theme.of(context).textTheme.titleSmall),
+        Text(quantity.toString(),
+            style: Theme.of(context).textTheme.titleSmall),
         const SizedBox(width: HSizes.spaceBtwItems),
-        const HRoundedIcon(
+        HRoundedIcon(
           data: Iconsax.add,
           width: 32,
           height: 32,
           size: HSizes.md,
           color: HColors.white,
           backgroundColor: HColors.primary,
+          onPressed: add,
         ),
       ],
     );

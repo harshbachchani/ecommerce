@@ -39,6 +39,12 @@ class ProductModel {
     this.productAttributes,
     this.productVariations,
   });
+  static isEmpty(ProductModel product) {
+    if (product.id.isEmpty &&
+        product.title.isEmpty &&
+        product.productType.isEmpty) return true;
+    return false;
+  }
 
   static ProductModel empty() => ProductModel(
         id: '',

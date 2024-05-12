@@ -1,21 +1,26 @@
 import 'package:ecommerce/common/widgets/custom_shapes/container/rounded_container.dart';
-import 'package:ecommerce/common/widgets/icons/circular_icons.dart';
 import 'package:ecommerce/common/widgets/images/rounded_image.dart';
+import 'package:ecommerce/common/widgets/products/cart/add_to_cart_button.dart';
+import 'package:ecommerce/common/widgets/products/favourite_icons/favourite_icon.dart';
 import 'package:ecommerce/common/widgets/products/products_cards/widgets/product_price_text.dart';
 import 'package:ecommerce/common/widgets/products/products_cards/widgets/products_brand_tag.dart';
 import 'package:ecommerce/common/widgets/text/product_title_text.dart';
+import 'package:ecommerce/features/shop/controllers/product/product_controller.dart';
+import 'package:ecommerce/features/shop/models/product_model.dart';
 import 'package:ecommerce/utils/constants/colors.dart';
-import 'package:ecommerce/utils/constants/image_string.dart';
+import 'package:ecommerce/utils/constants/enums.dart';
 import 'package:ecommerce/utils/constants/sizes.dart';
 import 'package:ecommerce/utils/helpers/helper_function.dart';
 import 'package:flutter/material.dart';
 
-import 'package:iconsax_flutter/iconsax_flutter.dart';
-
 class HProductCardHorizontal extends StatelessWidget {
-  const HProductCardHorizontal({super.key});
+  const HProductCardHorizontal({super.key, required this.product});
+  final ProductModel product;
   @override
   Widget build(BuildContext context) {
+    final controller = ProductController.instance;
+    final salePercentage =
+        controller.calculatePercentage(product.price, product.salePrice);
     final dark = HHelperFunctions.isDarkMode(context);
     return Container(
       width: 310,
@@ -36,39 +41,38 @@ class HProductCardHorizontal extends StatelessWidget {
             child: Stack(
               children: [
                 //Thumbnail Image
-                const SizedBox(
+                SizedBox(
                   height: 120,
                   width: 120,
                   child: HRoundedImage(
-                    imageUrl: HImages.productImage1,
+                    isNetworkImage: true,
+                    imageUrl: product.thumbanail,
                     applyImageRadius: true,
                   ),
                 ),
                 //Sale Tag
-                Positioned(
-                  top: 12,
-                  child: HRoundedContainer(
-                    radius: HSizes.sm,
-                    backgroundColor: HColors.secondary.withOpacity(.8),
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: HSizes.sm, vertical: HSizes.xs),
-                    child: Text(
-                      '25%',
-                      style: Theme.of(context)
-                          .textTheme
-                          .labelLarge!
-                          .apply(color: HColors.black),
+                if (salePercentage != null)
+                  Positioned(
+                    top: 12,
+                    child: HRoundedContainer(
+                      radius: HSizes.sm,
+                      backgroundColor: HColors.secondary.withOpacity(.8),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: HSizes.sm, vertical: HSizes.xs),
+                      child: Text(
+                        '$salePercentage%',
+                        style: Theme.of(context)
+                            .textTheme
+                            .labelLarge!
+                            .apply(color: HColors.black),
+                      ),
                     ),
                   ),
-                ),
                 //Favourite Icon Button
-                const Positioned(
+                Positioned(
                   top: 0,
                   right: 0,
-                  child: HRoundedIcon(
-                    data: Iconsax.heart,
-                    color: Colors.red,
-                  ),
+                  child: HFavouriteIcon(productId: product.id),
                 ),
               ],
             ),
@@ -81,45 +85,47 @@ class HProductCardHorizontal extends StatelessWidget {
               padding: const EdgeInsets.only(top: HSizes.sm, left: HSizes.sm),
               child: Column(
                 children: [
-                  const Column(
+                  Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      HProudctTitleText(
-                          title: 'Green Nike Half Sleves Shirt',
-                          smallSize: true),
-                      SizedBox(height: HSizes.spaceBtwItems / 2),
-                      HBrandTitleWithVerifiedIcon(title: 'Nike'),
+                      HProudctTitleText(title: product.title, smallSize: true),
+                      const SizedBox(height: HSizes.spaceBtwItems / 2),
+                      HBrandTitleWithVerifiedIcon(title: product.brand!.name),
                     ],
                   ),
                   const Spacer(),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Flexible(
-                        child: HProductPriceText(price: '256.0'),
+                      Flexible(
+                        child: Column(
+                          children: [
+                            if (product.productType ==
+                                    ProductType.single.toString() &&
+                                product.salePrice > 0)
+                              Padding(
+                                padding: const EdgeInsets.only(left: HSizes.sm),
+                                child: Text(
+                                  product.price.toString(),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .labelMedium!
+                                      .apply(
+                                        decoration: TextDecoration.lineThrough,
+                                      ),
+                                ),
+                              ),
+                            Padding(
+                              padding: const EdgeInsets.only(left: HSizes.sm),
+                              child: HProductPriceText(
+                                  price: controller.getProductPrice(product)),
+                            ),
+                          ],
+                        ),
                       ),
 
                       //Add to Cart
-                      Container(
-                        decoration: const BoxDecoration(
-                          color: HColors.dark,
-                          borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(HSizes.cardRadiusMd),
-                            bottomRight:
-                                Radius.circular(HSizes.productImageRadius),
-                          ),
-                        ),
-                        child: const SizedBox(
-                          width: HSizes.iconLg * 1.2,
-                          height: HSizes.iconLg * 1.2,
-                          child: Center(
-                            child: Icon(
-                              Iconsax.add,
-                              color: HColors.white,
-                            ),
-                          ),
-                        ),
-                      ),
+                      ProductCardAddToCartButton(product: product),
                     ],
                   )
                 ],

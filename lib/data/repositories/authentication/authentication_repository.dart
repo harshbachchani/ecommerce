@@ -7,6 +7,7 @@ import 'package:ecommerce/utils/exceptions/firebase_auth_exceptions.dart';
 import 'package:ecommerce/utils/exceptions/firebase_exceptions.dart';
 import 'package:ecommerce/utils/exceptions/format_exceptions.dart';
 import 'package:ecommerce/utils/exceptions/platform_exceptions.dart';
+import 'package:ecommerce/utils/local_storage/storage_utility.dart';
 import 'package:ecommerce/utils/popups/loader.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
@@ -36,6 +37,9 @@ class AuthenticationRepository extends GetxController {
     User? user = _auth.currentUser;
     if (user != null) {
       if (user.emailVerified) {
+        //Initialize user specific storage
+        await HLocalStorage.init(user.uid);
+        //If the user's email is verified,navigate to the main Navigation Menu
         Get.offAll(() => const NavigationMenu());
       } else {
         Get.offAll(() => VerifyEmailScreen(email: _auth.currentUser?.email));

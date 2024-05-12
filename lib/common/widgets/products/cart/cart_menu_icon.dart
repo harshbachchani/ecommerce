@@ -1,6 +1,8 @@
+import 'package:ecommerce/features/shop/controllers/product/cart_controller.dart';
 import 'package:ecommerce/utils/constants/colors.dart';
 import 'package:ecommerce/utils/helpers/helper_function.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:iconsax_flutter/iconsax_flutter.dart';
 
 class HCartCounterIcon extends StatelessWidget {
@@ -9,6 +11,7 @@ class HCartCounterIcon extends StatelessWidget {
   final Color? iconcolor;
   @override
   Widget build(BuildContext context) {
+    final cartController = Get.put(CartController());
     final dark = HHelperFunctions.isDarkMode(context);
     return Stack(
       children: [
@@ -29,12 +32,14 @@ class HCartCounterIcon extends StatelessWidget {
               borderRadius: BorderRadius.circular(100),
             ),
             child: Center(
-              child: Text(
-                '2',
-                style: Theme.of(context).textTheme.labelLarge!.apply(
-                      color: HColors.white,
-                      fontSizeFactor: 0.8,
-                    ),
+              child: Obx(
+                () => Text(
+                  cartController.noOfCartItems.value.toString(),
+                  style: Theme.of(context).textTheme.labelLarge!.apply(
+                        color: HColors.white,
+                        fontSizeFactor: 0.8,
+                      ),
+                ),
               ),
             ),
           ),

@@ -3,7 +3,7 @@ class HPricingCalculator {
     double taxRate = getTaxRateForLocation(location);
     double taxAmount = productPrice * taxRate;
 
-    double shippingCost = getShippingCost(location);
+    double shippingCost = getShippingCost(location, productPrice);
 
     double totalPrice = productPrice + taxAmount + shippingCost;
     return totalPrice;
@@ -11,7 +11,7 @@ class HPricingCalculator {
 
   /// -- Calculate shipping cost
   static String calculateShippingCost(double productPrice, String location) {
-    double shippingCost = getShippingCost(location);
+    double shippingCost = getShippingCost(location, productPrice);
     return shippingCost.toStringAsFixed(2);
   }
 
@@ -25,13 +25,23 @@ class HPricingCalculator {
   static double getTaxRateForLocation(String location) {
     // Lookup the tax rate for the given location from a tax rate database or API.
     // Return the appropriate tax rate.
-    return 0.10; // Example tax rate of 10%
+    return 0.05; // Example tax rate of 10%
   }
 
-  static double getShippingCost(String location) {
+  static double getShippingCost(String location, double price) {
     // Lookup the shipping cost for the given location using a shipping rate API.
     // Calculate the shipping cost based on various factors like distance, weight, etc.
-    return 5.00; // Example shipping cost of $5
+
+    if (price < 1000) {
+      return 60.0;
+    } else if (price >= 1000 && price <= 3000)
+      // ignore: curly_braces_in_flow_control_structures
+      return 40.0;
+    else if (price <= 5000) {
+      return 20.0;
+    }
+
+    return 0.0; // Example shipping cost of $5
   }
 
   /// -- Sum all cart values and return total amount

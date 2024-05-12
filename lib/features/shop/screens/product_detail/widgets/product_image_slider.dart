@@ -1,8 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ecommerce/common/widgets/appbar/appbar.dart';
 import 'package:ecommerce/common/widgets/custom_shapes/curved_edges/curved_edge_widget.dart';
-import 'package:ecommerce/common/widgets/icons/circular_icons.dart';
+
 import 'package:ecommerce/common/widgets/images/rounded_image.dart';
+import 'package:ecommerce/common/widgets/products/favourite_icons/favourite_icon.dart';
 import 'package:ecommerce/features/shop/controllers/product/images_controller.dart';
 import 'package:ecommerce/features/shop/models/product_model.dart';
 import 'package:ecommerce/utils/constants/colors.dart';
@@ -11,7 +12,6 @@ import 'package:ecommerce/utils/constants/sizes.dart';
 import 'package:ecommerce/utils/helpers/helper_function.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:iconsax_flutter/iconsax_flutter.dart';
 
 class HProductImageSlider extends StatelessWidget {
   const HProductImageSlider({super.key, required this.product});
@@ -90,13 +90,12 @@ class HProductImageSlider extends StatelessWidget {
 
             //AppBar Icons
 
-            const HAppBar(
+            HAppBar(
               showbackArrow: true,
               actions: [
-                HRoundedIcon(
-                  data: Iconsax.heart,
-                  color: Colors.red,
-                )
+                HFavouriteIcon(
+                  productId: product.id,
+                ),
               ],
             )
           ],

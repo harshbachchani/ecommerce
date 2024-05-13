@@ -22,6 +22,8 @@ samples, guidance on mobile development, and a full API reference.
     <td><img src="screenshots/img4.jpg" alt="Image 4" style="width:50%;"></td>
     <td><img src="screenshots/img5.jpg" alt="Image 5" style="width:50%;"></td>
     <td><img src="screenshots/img6.jpg" alt="Image 6" style="width:50%;"></td>
+  </tr>
+  <tr>
     <td><img src="screenshots/img7.jpg" alt="Image 7" style="width:50%;"></td>
     <td><img src="screenshots/img8.jpg" alt="Image 8" style="width:50%;"></td>
     <td><img src="screenshots/img9.jpg" alt="Image 9" style="width:50%;"></td>
@@ -29,6 +31,5 @@ samples, guidance on mobile development, and a full API reference.
     <td><img src="screenshots/img11.jpg" alt="Image 11" style="width:50%;"></td>
     <td><img src="screenshots/img12.jpg" alt="Image 12" style="width:50%;"></td>
     <td><img src="screenshots/img13.jpg" alt="Image 13" style="width:50%;"></td>
-    
   </tr>
 </table>
